@@ -1,0 +1,30 @@
+{
+  "files": [
+    "lib",
+    "dist",
+    "readme.md"
+  ],
+  "name": "@theludd/parallel",
+  "version": "0.0.0",
+  "description": "Monadic structure for parallel async operations",
+  "main": "dist/parallel.js",
+  "repository": "git@github.com:TheLudd/parallel.git",
+  "author": "Ludwig Magnusson <ludwig.magnusson@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "yafu": "^0.1.7"
+  },
+  "scripts": {
+    "transpile": "mkdir -p dist && babel lib -d dist --source-maps",
+    "prepublish": "yarn transpile",
+    "test": "mocha"
+  },
+  "standard": {
+    "env": "mocha"
+  }
+}
