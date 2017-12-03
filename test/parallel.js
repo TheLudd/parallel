@@ -140,6 +140,40 @@ describe('parallel', () => {
     })
   })
 
+  describe('#rejectMap', () => {
+    it('should return the same instance of a non rejected parallel', () => {
+      const f1 = Parallel.of(1)
+      const f2 = f1.rejectMap(inc)
+      equal(f1, f2)
+    })
+
+    it('should return a new parallel mapped to the rejected value', () => {
+      const f1 = Parallel.reject(1)
+      const f2 = f1.rejectMap(inc)
+      assertRejectedParallel(2, f2)
+    })
+  })
+
+  describe('#rejectChain', () => {
+    it('should return the same instance of a non rejected parallel', () => {
+      const f1 = Parallel.of(1)
+      const f2 = f1.rejectChain(incChained)
+      equal(f1, f2)
+    })
+
+    it('should return a new parallel chained', () => {
+      const f1 = Parallel.reject(1)
+      const f2 = f1.rejectChain((e) => Parallel.reject(e + 1))
+      assertRejectedParallel(2, f2)
+    })
+
+    it('should be able to turn rejected parallels to resolved ones', () => {
+      const f1 = Parallel.reject(1)
+      const f2 = f1.rejectChain(incChained)
+      assertParallelValue(2, f2)
+    })
+  })
+
   describe('async -', () => {
     it('map', (done) => {
       const parallel = nextTick(1).map(inc)
