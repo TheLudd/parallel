@@ -5,7 +5,7 @@
     "readme.md"
   ],
   "name": "@theludd/parallel",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Monadic structure for parallel async operations",
   "main": "dist/parallel.js",
   "repository": "git@github.com:TheLudd/parallel.git",
