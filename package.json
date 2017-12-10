@@ -12,11 +12,13 @@
   "author": "Ludwig Magnusson <ludwig.magnusson@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@theludd/fantasy-functions": "^1.0.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
+    "source-map-support": "^0.5.0",
     "yafu": "^0.1.7"
   },
   "scripts": {
@@ -26,5 +28,8 @@
   },
   "standard": {
     "env": "mocha"
+  },
+  "dependencies": {
+    "fantasy-land": "^3.4.0"
   }
 }

@@ -1,6 +1,7 @@
 import { equal, fail, ifError, ok } from 'assert'
 import { curry } from 'yafu'
 import Parallel from '../lib/parallel'
+import { ap, chain, map, of } from '@theludd/fantasy-functions'
 
 describe('parallel', () => {
   function nextTick (val) {
@@ -62,11 +63,13 @@ describe('parallel', () => {
   }
 
   const inc = (x) => x + 1
-  const incChained = (x) => Parallel.of(x + 1)
+  const parallelOf = of(Parallel)
+  const incChained = (x) => parallelOf(x + 1)
+  const parallelOf1 = parallelOf(1)
 
   describe('.of', () => {
     it('should produce a resolving parallel', () => {
-      assertParallelValue(1, Parallel.of(1))
+      assertParallelValue(1, parallelOf1)
     })
   })
 
@@ -78,23 +81,23 @@ describe('parallel', () => {
 
   describe('#map', () => {
     it('should return a new parallel mapped to the existing value', () => {
-      assertParallelValue(2, Parallel.of(1).map(inc))
+      assertParallelValue(2, map(inc, parallelOf1))
     })
 
     it('should ignore rejections', () => {
-      assertRejectedParallel('someRejection', Parallel.reject('someRejection').map(inc))
+      assertRejectedParallel('someRejection', map(inc, Parallel.reject('someRejection')))
     })
 
     it('should return chain rejections', () => {
       const chainFn = (v) => Parallel.reject(`error from ${v}`)
-      const input = Parallel.of('input').chain(chainFn)
+      const input = chain(chainFn, parallelOf('input'))
       assertRejectedParallel('error from input', input)
     })
 
     it('should return independent parallels', () => {
-      const original = new Parallel((_, res) => res(0)).map(inc)
-      const plus2 = original.map(inc)
-      const plus3 = original.map(inc).map(inc)
+      const original = map(inc, new Parallel((_, res) => res(0)))
+      const plus2 = map(inc, original)
+      const plus3 = map(inc, map(inc, original))
       assertParallelValue(2, plus2)
       assertParallelValue(3, plus3)
     })
@@ -102,47 +105,47 @@ describe('parallel', () => {
 
   describe('#chain', () => {
     it('should return a new parallel chained from the existing value', () => {
-      assertParallelValue(2, Parallel.of(1).chain(incChained))
+      assertParallelValue(2, chain(incChained, parallelOf(1)))
     })
 
     it('should ignore rejections', () => {
-      assertRejectedParallel('someRejection', Parallel.reject('someRejection').chain(incChained))
+      assertRejectedParallel('someRejection', chain(incChained, Parallel.reject('someRejection')))
     })
   })
 
   describe('#ap', () => {
     it('should apply the value in a to the function in b', () => {
-      const a = Parallel.of(10)
-      const b = Parallel.of(inc)
-      const result = a.ap(b)
+      const a = parallelOf(10)
+      const b = parallelOf(inc)
+      const result = ap(b, a)
       assertParallelValue(11, result)
     })
 
     it('should return return the error in a if a is rejected', () => {
       const a = Parallel.reject('error')
-      const b = Parallel.of(inc)
-      const result = a.ap(b)
+      const b = parallelOf(inc)
+      const result = ap(b, a)
       assertRejectedParallel('error', result)
     })
 
     it('should return return the error in b if b is rejected', () => {
-      const a = Parallel.of(1)
+      const a = parallelOf(1)
       const b = Parallel.reject('error')
-      const result = a.ap(b)
+      const result = ap(b, a)
       assertRejectedParallel('error', result)
     })
 
     it('should only reject once', (done) => {
       const a = new Parallel((rej) => rej('first'))
       const b = new Parallel((rej) => rej('second'))
-      const result = a.ap(b)
+      const result = ap(b, a)
       assertRejectedParallel('first', result, done)
     })
   })
 
   describe('#rejectMap', () => {
     it('should return the same instance of a non rejected parallel', () => {
-      const f1 = Parallel.of(1)
+      const f1 = parallelOf(1)
       const f2 = f1.rejectMap(inc)
       equal(f1, f2)
     })
@@ -156,7 +159,7 @@ describe('parallel', () => {
 
   describe('#rejectChain', () => {
     it('should return the same instance of a non rejected parallel', () => {
-      const f1 = Parallel.of(1)
+      const f1 = parallelOf(1)
       const f2 = f1.rejectChain(incChained)
       equal(f1, f2)
     })
@@ -176,17 +179,17 @@ describe('parallel', () => {
 
   describe('async -', () => {
     it('map', (done) => {
-      const parallel = nextTick(1).map(inc)
+      const parallel = map(inc, nextTick(1))
       assertParallelValue(2, parallel, done)
     })
 
     it('chain', (done) => {
-      const parallel = nextTick(1).chain(incChained)
+      const parallel = chain(incChained, nextTick(1))
       assertParallelValue(2, parallel, done)
     })
 
     it('chain with async function', (done) => {
-      const parallel = nextTick(4).chain(nextTickCall(inc))
+      const parallel = chain(nextTickCall(inc), nextTick(4))
       assertParallelValue(5, parallel, done)
     })
   })
@@ -209,35 +212,35 @@ describe('parallel', () => {
     }
 
     it('map', () => {
-      testStack(Parallel.of(0), (f) => f.map(inc))
+      testStack(parallelOf(0), (f) => map(inc, f))
     })
 
     it('chain', () => {
-      testStack(Parallel.of(0), (f) => f.chain(incChained))
+      testStack(parallelOf(0), (f) => chain(incChained, f))
     })
 
     it('chain async', (done) => {
-      testStack(nextTick(0), (f) => f.chain(nextTickCall(inc)), done)
+      testStack(nextTick(0), (f) => chain(nextTickCall(inc), f), done)
     })
 
     it('chain then map', (done) => {
       const parallel = nextTick(0)
-      testStack(parallel, (f) => f.map(inc), done)
+      testStack(parallel, (f) => map(inc, f), done)
     })
 
     it('intertwined', (done) => {
-      const getNext = (f) => f.chain(nextTickCall((x) => x)).map(inc)
-      testStack(Parallel.of(0), getNext, done)
+      const getNext = (f) => chain(nextTickCall((x) => x), map(inc, f))
+      testStack(parallelOf(0), getNext, done)
     })
 
     it('ap', () => {
-      const getNext = (f) => f.ap(Parallel.of(inc))
-      testStack(Parallel.of(0), getNext)
+      const getNext = (f) => ap(parallelOf(inc), f)
+      testStack(parallelOf(0), getNext)
     })
 
     it('ap async', (done) => {
-      const getNext = (f) => f.ap(nextTick(inc))
-      testStack(Parallel.of(0), getNext, done)
+      const getNext = (f) => ap(nextTick(inc), f)
+      testStack(parallelOf(0), getNext, done)
     })
   })
 })
