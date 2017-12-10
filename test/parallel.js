@@ -1,7 +1,7 @@
 import { equal, fail, ifError, ok } from 'assert'
 import { curry } from 'yafu'
-import Parallel from '../lib/parallel'
 import { ap, chain, map, of } from '@theludd/fantasy-functions'
+import Parallel from '../lib/parallel'
 
 describe('parallel', () => {
   function nextTick (val) {
