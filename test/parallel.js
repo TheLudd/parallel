@@ -162,7 +162,7 @@ describe('parallel', () => {
     it('should return the same instance of a non rejected parallel', () => {
       const f1 = parallelOf(1)
       const f2 = f1.rejectMap(inc)
-      equal(f1, f2)
+      assertParallelValue(1, f2)
     })
 
     it('should return a new parallel mapped to the rejected value', () => {
@@ -176,7 +176,7 @@ describe('parallel', () => {
     it('should return the same instance of a non rejected parallel', () => {
       const f1 = parallelOf(1)
       const f2 = f1.rejectChain(incChained)
-      equal(f1, f2)
+      assertParallelValue(1, f2)
     })
 
     it('should return a new parallel chained', () => {
