@@ -25,13 +25,19 @@ describe('parallel', () => {
     const shoulBeSync = done == null
     let forkCount = 0
     let didFork = false
-    parallel.fork(null, (v) => {
+    parallel.fork((e) => {
+      if (done) {
+        done(e)
+      } else {
+        ifError(new Error(`Expected resolved value ${expected} but got rejected value ${e}`))
+      }
+    }, (v) => {
       forkCount += 1
       if (forkCount > 1) {
         ifError(new Error(`Error callback was called ${forkCount} times`))
       }
       didFork = true
-      equal(expected, v)
+      equal(v, expected)
       if (!shoulBeSync) {
         done()
       }
@@ -52,10 +58,12 @@ describe('parallel', () => {
         ifError(new Error(`Error callback was called ${forkCount} times`))
       }
       didFork = true
-      equal(expected, v)
+      equal(v, expected)
       if (!shoulBeSync) {
         done()
       }
+    }, (result) => {
+      ifError(new Error(`Expected rejected parallel but it was resolved with value ${result}`))
     })
     if (shoulBeSync) {
       ok(didFork, 'Parallel did not fork')
@@ -109,7 +117,14 @@ describe('parallel', () => {
     })
 
     it('should ignore rejections', () => {
-      assertRejectedParallel('someRejection', chain(incChained, Parallel.reject('someRejection')))
+      function incRejected (v) {
+        return Parallel.reject(v + 1)
+      }
+      const result = chain(
+        incChained,
+        chain(incRejected, parallelOf(1))
+      )
+      assertRejectedParallel(2, result)
     })
   })
 
