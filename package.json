@@ -19,6 +19,7 @@
     "chai": "^4.2.0",
     "eslint": "^5.6.1",
     "mocha": "^5.2.0",
+    "sinon": "^4.5.0",
     "source-map-support": "^0.5.9",
     "yafu": "^0.1.9"
   },

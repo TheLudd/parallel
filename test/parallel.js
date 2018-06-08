@@ -2,10 +2,19 @@ import {
   equal, fail, ifError, ok,
 } from 'assert'
 import { curry, I, K } from 'yafu'
+import { assert } from 'chai'
+import sinon from 'sinon'
 import {
   ap, chain, map, of,
 } from '@theludd/fantasy-functions'
 import Parallel from '../lib/parallel'
+
+sinon.assert.expose(assert, { prefix: '' })
+
+const {
+  callCount,
+  calledWith,
+} = assert
 
 function length (lengthy) {
   return lengthy.length
@@ -300,6 +309,62 @@ describe('parallel', () => {
     it('ap async', (done) => {
       const getNext = (f) => ap(nextTick(inc), f)
       testStack(parallelOf(0), getNext, done)
+    })
+  })
+
+  describe('double callbacks', () => {
+    it('should only resolve once', () => {
+      const rejectHandler = sinon.spy()
+      const resolver = sinon.spy()
+      const p = new Parallel((rej, res) => {
+        res(1)
+        res(2)
+      })
+      p.fork(rejectHandler, resolver)
+      calledWith(resolver, 1)
+      callCount(resolver, 1)
+    })
+
+    it('should only reject once', () => {
+      const rejectHandler = sinon.spy()
+      const resolver = sinon.spy()
+      const p = new Parallel((rej) => {
+        rej(1)
+        rej(2)
+      })
+      p.fork(rejectHandler, resolver)
+      calledWith(rejectHandler, 1)
+      callCount(rejectHandler, 1)
+    })
+
+    it('should not reject if resolved', () => {
+      const rejectHandler = sinon.spy()
+      const resolver = sinon.spy()
+      const p = new Parallel((rej, res) => {
+        res(1)
+        rej(2)
+      })
+      p.fork(rejectHandler, resolver)
+      calledWith(resolver, 1)
+      callCount(rejectHandler, 0)
+    })
+
+    it('should not resolve if rejected', () => {
+      const rejectHandler = sinon.spy()
+      const resolver = sinon.spy()
+      const p = new Parallel((rej, res) => {
+        rej(1)
+        res(2)
+      })
+      p.fork(rejectHandler, resolver)
+      calledWith(rejectHandler, 1)
+      callCount(resolver, 0)
+    })
+
+    it('should still be forkable serval times', (done) => {
+      const p = parallelOf(1)
+      assertParallelValue(1, p)
+      assertParallelValue(1, p, done)
     })
   })
 })
