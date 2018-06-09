@@ -7,6 +7,10 @@ import {
 } from '@theludd/fantasy-functions'
 import Parallel from '../lib/parallel'
 
+function length (lengthy) {
+  return lengthy.length
+}
+
 describe('parallel', () => {
   function nextTick (val) {
     return new Parallel((_, resolve) => {
@@ -23,6 +27,14 @@ describe('parallel', () => {
       })
     })
   ))
+
+  function rejectAsync (e) {
+    return new Parallel((reject) => {
+      process.nextTick(() => {
+        reject(e)
+      })
+    })
+  }
 
   function assertParallelValue (expected, parallel, done) {
     ok(parallel instanceof Parallel, 'result was not a parallel instance')
@@ -174,13 +186,23 @@ describe('parallel', () => {
       const f2 = f1.rejectMap(inc)
       assertRejectedParallel(2, f2)
     })
+
+    it('should work with async parallels', (done) => {
+      const parallel = nextTick(1).rejectMap(inc)
+      assertParallelValue(1, parallel, done)
+    })
+
+    it('should work with rejected async parallels', (done) => {
+      const parallel = rejectAsync('error').rejectMap(length)
+      assertRejectedParallel(5, parallel, done)
+    })
   })
 
   describe('#rejectChain', () => {
     it('should return the same instance of a non rejected parallel', () => {
       const f1 = parallelOf(1)
       const f2 = f1.rejectChain(incChained)
-      assertParallelValue(1, f2)
+      equal(f1, f2)
     })
 
     it('should return a new parallel chained', () => {
@@ -193,6 +215,14 @@ describe('parallel', () => {
       const f1 = Parallel.reject(1)
       const f2 = f1.rejectChain(incChained)
       assertParallelValue(2, f2)
+    })
+
+    it('should work with async parallels', (done) => {
+      const p1 = chain(incChained, parallelOf(1))
+      const p2 = p1.rejectChain(incChained)
+      assertParallelValue(2, p2, () => {
+        assertParallelValue(2, p1, done)
+      })
     })
   })
 
