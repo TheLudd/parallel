@@ -1,6 +1,10 @@
-import { equal, fail, ifError, ok } from 'assert'
+import {
+  equal, fail, ifError, ok,
+} from 'assert'
 import { curry } from 'yafu'
-import { ap, chain, map, of } from '@theludd/fantasy-functions'
+import {
+  ap, chain, map, of,
+} from '@theludd/fantasy-functions'
 import Parallel from '../lib/parallel'
 
 describe('parallel', () => {
@@ -122,7 +126,7 @@ describe('parallel', () => {
       }
       const result = chain(
         incChained,
-        chain(incRejected, parallelOf(1))
+        chain(incRejected, parallelOf(1)),
       )
       assertRejectedParallel(2, result)
     })
@@ -259,4 +263,3 @@ describe('parallel', () => {
     })
   })
 })
-
