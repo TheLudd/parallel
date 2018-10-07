@@ -1,7 +1,7 @@
 import {
   equal, fail, ifError, ok,
 } from 'assert'
-import { curry } from 'yafu'
+import { curry, I, K } from 'yafu'
 import {
   ap, chain, map, of,
 } from '@theludd/fantasy-functions'
@@ -133,13 +133,12 @@ describe('parallel', () => {
     })
 
     it('should ignore rejections', () => {
-      function incRejected (v) {
+      function incAndReject (v) {
         return Parallel.reject(v + 1)
       }
-      const result = chain(
-        incChained,
-        chain(incRejected, parallelOf(1)),
-      )
+
+      const rejected2 = chain(incAndReject, parallelOf(1))
+      const result = chain(incChained, rejected2)
       assertRejectedParallel(2, result)
     })
   })
@@ -243,6 +242,17 @@ describe('parallel', () => {
     })
   })
 
+  it('should handle resolved Parallels in the middle of sequences', () => {
+    const resolvedParallel1 = parallelOf('resolved1')
+    const resolvedParallel2 = parallelOf('resolved2')
+    const rejectedParallel = Parallel.reject('an err')
+    const getRejected = K(rejectedParallel)
+    const asked = chain(getRejected, resolvedParallel1)
+    const twiceChained = chain(K(asked), resolvedParallel2)
+    const result = map(I, twiceChained)
+    assertRejectedParallel('an err', result)
+  })
+
   describe('stack safety -', () => {
     function testStack (initial, getNextFn, done) {
       const rounds = 10000
@@ -282,12 +292,12 @@ describe('parallel', () => {
       testStack(parallelOf(0), getNext, done)
     })
 
-    it.skip('ap', () => {
+    it('ap', () => {
       const getNext = (f) => ap(parallelOf(inc), f)
       testStack(parallelOf(0), getNext)
     })
 
-    it.skip('ap async', (done) => {
+    it('ap async', (done) => {
       const getNext = (f) => ap(nextTick(inc), f)
       testStack(parallelOf(0), getNext, done)
     })
