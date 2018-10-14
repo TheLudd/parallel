@@ -24,8 +24,9 @@
   },
   "scripts": {
     "transpile": "mkdir -p dist && babel lib -d dist --source-maps",
-    "prepublish": "yarn transpile",
+    "prepublishOnly": "yarn transpile",
     "lint": "eslint lib test",
+    "pretest": "yarn",
     "test": "mocha"
   },
   "standard": {
