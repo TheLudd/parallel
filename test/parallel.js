@@ -301,12 +301,12 @@ describe('parallel', () => {
       testStack(parallelOf(0), getNext, done)
     })
 
-    it('ap', () => {
+    it.skip('ap', () => {
       const getNext = (f) => ap(parallelOf(inc), f)
       testStack(parallelOf(0), getNext)
     })
 
-    it('ap async', (done) => {
+    it.skip('ap async', (done) => {
       const getNext = (f) => ap(nextTick(inc), f)
       testStack(parallelOf(0), getNext, done)
     })
