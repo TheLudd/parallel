@@ -12,16 +12,16 @@
   "author": "Ludwig Magnusson <ludwig.magnusson@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@theludd/eslint-config-gaius": "^1.0.6",
+    "@theludd/eslint-config-gaius": "^2.0.8",
     "babel-cli": "^6.26.0",
-    "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
-    "eslint": "^5.6.1",
-    "mocha": "^5.2.0",
-    "sinon": "^4.5.0",
-    "source-map-support": "^0.5.9",
-    "yafu": "^0.1.9"
+    "eslint": "^6.7.2",
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0",
+    "source-map-support": "^0.5.16",
+    "yafu": "^0.1.11"
   },
   "scripts": {
     "transpile": "mkdir -p dist && babel lib -d dist --source-maps",
@@ -34,7 +34,7 @@
     "env": "mocha"
   },
   "dependencies": {
-    "@theludd/fantasy-functions": "^1.0.1",
-    "fantasy-land": "^3.5.0"
+    "@theludd/fantasy-functions": "^1.1.1",
+    "fantasy-land": "^4.0.1"
   }
 }
