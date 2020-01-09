@@ -316,7 +316,7 @@ describe('parallel', () => {
     it('should only resolve once', () => {
       const rejectHandler = sinon.spy()
       const resolver = sinon.spy()
-      const p = new Parallel((rej, res) => {
+      const p = new Parallel((_, res) => {
         res(1)
         res(2)
       })
