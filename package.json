@@ -35,7 +35,7 @@
     "env": "mocha"
   },
   "dependencies": {
-    "@theludd/fantasy-functions": "^1.1.1",
+    "@theludd/fantasy-functions": "^2.0.1",
     "fantasy-land": "^4.0.1"
   }
 }
