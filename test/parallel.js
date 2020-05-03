@@ -1,11 +1,17 @@
 import {
-  equal, fail, ifError, ok,
+  equal,
+  fail,
+  ifError,
+  ok,
 } from 'assert'
 import { curry, I, K } from 'yafu'
 import { assert } from 'chai'
 import sinon from 'sinon'
 import {
-  ap, chain, map, of,
+  ap,
+  chain,
+  map,
+  of,
 } from '@theludd/fantasy-functions'
 import Parallel from '../lib/parallel'
 
@@ -275,7 +281,7 @@ describe('parallel', () => {
         if (e instanceof RangeError) {
           fail('', '', `${rounds} rounds of mapping blew the stack`)
         }
-        ifError(e)
+        done(e)
       }
     }
 
