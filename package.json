@@ -8,6 +8,7 @@
   "version": "2.0.8",
   "description": "Monadic structure for parallel async operations",
   "main": "dist/parallel.js",
+  "module": "lib/parallel.js",
   "repository": "git@github.com:TheLudd/parallel.git",
   "author": "Ludwig Magnusson <ludwig.magnusson@gmail.com>",
   "license": "MIT",
