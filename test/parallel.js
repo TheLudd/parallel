@@ -4,7 +4,7 @@ import {
   ifError,
   ok,
 } from 'assert'
-import { curry, I, K } from 'yafu'
+import { I, K, curry } from 'yafu'
 import { assert } from 'chai'
 import sinon from 'sinon'
 import {
@@ -12,8 +12,8 @@ import {
   chain,
   map,
   of,
-} from '@theludd/fantasy-functions'
-import Parallel from '../lib/parallel'
+} from '@yafu/fantasy-functions'
+import Parallel from '../lib/parallel.js'
 
 sinon.assert.expose(assert, { prefix: '' })
 

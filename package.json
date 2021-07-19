@@ -5,15 +5,21 @@
   "repository": "git@github.com:TheLudd/parallel.git",
   "license": "MIT",
   "author": "Ludwig Magnusson <ludwig.magnusson@gmail.com>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/parallel.js",
+      "require": "./dist/parallel.js"
+    }
+  },
   "main": "dist/parallel.js",
-  "module": "lib/parallel.js",
   "files": [
     "lib",
     "dist",
     "readme.md"
   ],
   "scripts": {
-    "transpile": "mkdir -p dist && babel lib -d dist --source-maps",
+    "transpile": "rollup -c",
     "prepublishOnly": "yarn transpile",
     "lint": "eslint lib test",
     "pretest": "yarn",
@@ -21,22 +27,19 @@
     "unit": "mocha"
   },
   "dependencies": {
-    "@theludd/fantasy-functions": "^2.0.2",
-    "fantasy-land": "^4.0.1"
+    "@yafu/fantasy-functions": "^1.1.1",
+    "fantasy-land": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/register": "^7.9.0",
-    "@theludd/eslint-config-gaius": "^2.0.9",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "chai": "^4.2.0",
-    "eslint": "^6.8.0",
-    "mocha": "^7.1.2",
-    "sinon": "^9.0.2",
+    "@theludd/eslint-config-gaius": "^2.1.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.31.0",
+    "eslint-plugin-import": "^2.23.4",
+    "mocha": "^9.0.2",
+    "rollup": "^2.53.2",
+    "sinon": "^11.1.1",
     "source-map-support": "^0.5.19",
-    "yafu": "^0.1.13"
+    "yafu": "^1.2.1"
   },
   "standard": {
     "env": "mocha"
