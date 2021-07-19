@@ -9,7 +9,7 @@
   "exports": {
     ".": {
       "import": "./lib/parallel.js",
-      "require": "./dist/parallel.js"
+      "require": "./dist/parallel.cjs"
     }
   },
   "main": "dist/parallel.js",
