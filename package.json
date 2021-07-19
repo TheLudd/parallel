@@ -1,17 +1,29 @@
 {
+  "name": "@theludd/parallel",
+  "version": "2.1.0",
+  "description": "Monadic structure for parallel async operations",
+  "repository": "git@github.com:TheLudd/parallel.git",
+  "license": "MIT",
+  "author": "Ludwig Magnusson <ludwig.magnusson@gmail.com>",
+  "main": "dist/parallel.js",
+  "module": "lib/parallel.js",
   "files": [
     "lib",
     "dist",
     "readme.md"
   ],
-  "name": "@theludd/parallel",
-  "version": "2.1.0",
-  "description": "Monadic structure for parallel async operations",
-  "main": "dist/parallel.js",
-  "module": "lib/parallel.js",
-  "repository": "git@github.com:TheLudd/parallel.git",
-  "author": "Ludwig Magnusson <ludwig.magnusson@gmail.com>",
-  "license": "MIT",
+  "scripts": {
+    "transpile": "mkdir -p dist && babel lib -d dist --source-maps",
+    "prepublishOnly": "yarn transpile",
+    "lint": "eslint lib test",
+    "pretest": "yarn",
+    "test": "yarn lint && yarn unit",
+    "unit": "mocha"
+  },
+  "dependencies": {
+    "@theludd/fantasy-functions": "^2.0.2",
+    "fantasy-land": "^4.0.1"
+  },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
@@ -26,19 +38,7 @@
     "source-map-support": "^0.5.19",
     "yafu": "^0.1.13"
   },
-  "scripts": {
-    "transpile": "mkdir -p dist && babel lib -d dist --source-maps",
-    "prepublishOnly": "yarn transpile",
-    "lint": "eslint lib test",
-    "pretest": "yarn",
-    "test": "yarn lint && yarn unit",
-    "unit": "mocha"
-  },
   "standard": {
     "env": "mocha"
-  },
-  "dependencies": {
-    "@theludd/fantasy-functions": "^2.0.2",
-    "fantasy-land": "^4.0.1"
   }
 }
