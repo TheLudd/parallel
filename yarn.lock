@@ -94,19 +94,35 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
-"@yafu/curry@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@yafu/curry/-/curry-1.1.1.tgz#7fdff31bf46aad9e817b32c6a58322ae0eacd6d7"
-  integrity sha512-rhHPmWd9YRRiBjVIJwY9SFeayP3XtSmr0H9gjcD2HHea2ld9iS94U4rYTSUEL1lFBPwy/+DivZSZfjZOJapm6Q==
+"@yafu/curry@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@yafu/curry/-/curry-1.2.2.tgz#71da6fa3a885c213937773590058ea32e385e2f5"
+  integrity sha512-pvWApC/kRulb3G31JcZJc0XYOFm250iWo2i+5XVvqTVUextH2wyBfKW8ErAcMv+7JPMX1K+in2bdQH/XN42Imw==
 
-"@yafu/fantasy-functions@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@yafu/fantasy-functions/-/fantasy-functions-1.1.1.tgz#527bba200991365859cf935e6f3c7c6ea78f4d11"
-  integrity sha512-8xHESfvRFYoviDM1J42XlkpbYJwk/4X9+Q6lyz+j7l70WD2G7mm/+84EsLzNjFyv5jLMKXTKnQP6yQQW+qEyeA==
+"@yafu/fantasy-functions@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@yafu/fantasy-functions/-/fantasy-functions-2.0.2.tgz#63544f94d861abc5cc6a83a143c507c62cf1ebcb"
+  integrity sha512-pyXRAOuiAX1/tUcET3nuSIb5lCsGsyF+CH/1HoxFRAM7eWg32vx2wCt+zC5IP1w0J5Z0pxwX2/Cn5dT3qcl9wQ==
   dependencies:
-    "@yafu/curry" "^1.1.1"
+    "@yafu/curry" "^1.2.2"
+    "@yafu/fantasy-types" "^1.0.2"
     fantasy-land "^5.0.0"
-    yafu "^1.2.1"
+    yafu "^2.0.2"
+
+"@yafu/fantasy-types@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@yafu/fantasy-types/-/fantasy-types-1.0.2.tgz#6e34b55541940c48b9253c526e55ab1480bb10a1"
+  integrity sha512-QAwZHOaE+4KXrika8J+HP2RziMjmfsB7CHV9R0K3OoMGly+pix6sdGdN+q++7N91crtOMCKMhCk0HhGtI3H6YA==
+  dependencies:
+    "@yafu/type-utils" "^1.0.2"
+    fantasy-land "^5.0.0"
+
+"@yafu/type-utils@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@yafu/type-utils/-/type-utils-1.0.2.tgz#8a4920c75f0e899e179a8b920a358f240e3871ff"
+  integrity sha512-7olBY9jmy+1KU4fOlPXzINLXKuFb7AgO6cmL8vqOUa3Tamh9Dsc4yN814hMHaxfsAzRx6TZwppEGMcFCUibxqw==
+  dependencies:
+    fantasy-land "^5.0.0"
 
 acorn-jsx@^5.3.1:
   version "5.3.2"
@@ -1711,12 +1727,12 @@ y18n@^5.0.5:
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-5.0.8.tgz#7f4934d0f7ca8c56f95314939ddcd2dd91ce1d55"
   integrity sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==
 
-yafu@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/yafu/-/yafu-1.2.1.tgz#eb15831e2cb68ed6dabe4adbabb86d3924fdae96"
-  integrity sha512-WvoDB5NOF90nKQiaXoykYkT+Eyn1vCW1iInQrxp7PyCKAnNhu87i39cds+esgzauAkp1qtvdm6xPurYuGUDk0g==
+yafu@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/yafu/-/yafu-2.0.2.tgz#8d61e7d60285da544bfe31250a185068db9cf9e3"
+  integrity sha512-k+9jhFX62b5qpm+q5SmLwuOa5z2Q+1980oeAy1+5HRYUNcmMw6gtwZ7R+NFjds4WkQK+ZavtwSc6QO5Xn3mX0A==
   dependencies:
-    "@yafu/curry" "^1.1.1"
+    "@yafu/curry" "^1.2.2"
 
 yallist@^4.0.0:
   version "4.0.0"
