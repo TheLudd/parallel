@@ -31,14 +31,14 @@
     "fantasy-land": "^5.0.0"
   },
   "devDependencies": {
-    "@theludd/eslint-config-gaius": "^2.1.0",
-    "chai": "^4.3.4",
-    "eslint": "^7.31.0",
-    "eslint-plugin-import": "^2.23.4",
-    "mocha": "^9.0.2",
-    "rollup": "^2.53.2",
-    "sinon": "^11.1.1",
-    "source-map-support": "^0.5.19",
+    "@theludd/eslint-config-gaius": "^2.1.1",
+    "chai": "^4.3.6",
+    "eslint": "^8.9.0",
+    "eslint-plugin-import": "^2.25.4",
+    "mocha": "^9.2.0",
+    "rollup": "^2.67.2",
+    "sinon": "^13.0.1",
+    "source-map-support": "^0.5.21",
     "yafu": "^2.0.2"
   },
   "standard": {
