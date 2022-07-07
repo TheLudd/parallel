@@ -1,6 +1,6 @@
 {
   "name": "@theludd/parallel",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Monadic structure for parallel async operations",
   "repository": "git@github.com:TheLudd/parallel.git",
   "license": "MIT",
