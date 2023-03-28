@@ -1,3 +1,5 @@
+spec: test/*.ts
+node-option: 'loader=@esbuild-kit/esm-loader'
 reporter: dot
 recursive: true
 timeout: 4000

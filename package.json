@@ -8,30 +8,38 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./lib/parallel.d.ts",
       "import": "./lib/parallel.js",
       "require": "./dist/parallel.cjs"
     }
   },
   "main": "./dist/parallel.cjs",
+  "types": "./lib/parallel.d.ts",
   "files": [
     "lib",
     "dist",
     "readme.md"
   ],
   "scripts": {
-    "transpile": "rollup -c",
-    "prepublishOnly": "pnpm transpile",
     "lint": "eslint lib test",
+    "prepublishOnly": "pnpm transpile",
     "pretest": "pnpm i",
     "test": "pnpm lint && pnpm unit",
+    "transpile": "rollup -c",
     "unit": "mocha"
   },
   "dependencies": {
     "@yafu/fantasy-functions": "^2.0.11",
+    "@yafu/type-utils": "^1.0.6",
     "fantasy-land": "^5.0.1"
   },
   "devDependencies": {
+    "@esbuild-kit/esm-loader": "^2.5.5",
     "@theludd/eslint-config-gaius": "^2.2.0",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.11",
+    "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "chai": "^4.3.7",
@@ -42,6 +50,7 @@
     "rollup": "^3.20.2",
     "sinon": "^15.0.3",
     "source-map-support": "^0.5.21",
+    "typescript": "^5.0.2",
     "yafu": "^2.0.14"
   },
   "standard": {
