@@ -20,10 +20,10 @@
   ],
   "scripts": {
     "transpile": "rollup -c",
-    "prepublishOnly": "yarn transpile",
+    "prepublishOnly": "pnpm transpile",
     "lint": "eslint lib test",
-    "pretest": "yarn",
-    "test": "yarn lint && yarn unit",
+    "pretest": "pnpm i",
+    "test": "pnpm lint && pnpm unit",
     "unit": "mocha"
   },
   "dependencies": {
