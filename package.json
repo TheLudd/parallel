@@ -27,19 +27,19 @@
     "unit": "mocha"
   },
   "dependencies": {
-    "@yafu/fantasy-functions": "^2.0.2",
-    "fantasy-land": "^5.0.0"
+    "@yafu/fantasy-functions": "^2.0.11",
+    "fantasy-land": "^5.0.1"
   },
   "devDependencies": {
-    "@theludd/eslint-config-gaius": "^2.1.1",
-    "chai": "^4.3.6",
-    "eslint": "^8.9.0",
-    "eslint-plugin-import": "^2.25.4",
-    "mocha": "^9.2.0",
-    "rollup": "^2.67.2",
-    "sinon": "^13.0.1",
+    "@theludd/eslint-config-gaius": "^2.2.0",
+    "chai": "^4.3.7",
+    "eslint": "^8.36.0",
+    "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
+    "rollup": "^3.20.2",
+    "sinon": "^15.0.3",
     "source-map-support": "^0.5.21",
-    "yafu": "^2.0.2"
+    "yafu": "^2.0.14"
   },
   "standard": {
     "env": "mocha"
