@@ -21,8 +21,9 @@
     "readme.md"
   ],
   "scripts": {
+    "clean": "rm -rf dist",
     "lint": "eslint lib test",
-    "prepublishOnly": "pnpm transpile",
+    "prepublishOnly": "pnpm clean && pnpm transpile",
     "pretest": "pnpm i",
     "test": "pnpm lint && pnpm unit",
     "transpile": "rollup -c",
